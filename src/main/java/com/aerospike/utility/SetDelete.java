@@ -29,6 +29,12 @@ public class SetDelete {
 		CommandLineParser parser = new PosixParser();
 		CommandLine cl = parser.parse(options, args, false);
 		
+		if (args.length == 0 || cl.hasOption("u")) {
+			logUsage(options);
+			return;
+		}
+
+		
 		String host = cl.getOptionValue("h", "127.0.0.1");
 		String portString = cl.getOptionValue("p", "3000");
 		int port = Integer.parseInt(portString);
@@ -57,5 +63,15 @@ public class SetDelete {
 		}, new String[] {});
 		log.info("Deleted "+ count + " records from set " + set);
 	}
+	
+	private static void logUsage(Options options) {
+		HelpFormatter formatter = new HelpFormatter();
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		String syntax = AQL.class.getName() + " [<options>]";
+		formatter.printHelp(pw, 100, syntax, "options:", options, 0, 2, null);
+		log.info(sw.toString());
+	}
+
 
 }
