@@ -1,5 +1,9 @@
 package com.aerospike.utility;
 
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
