@@ -1,11 +1,11 @@
 package com.aerospike.utility;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
@@ -72,7 +72,7 @@ public class SetDelete {
 		HelpFormatter formatter = new HelpFormatter();
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
-		String syntax = AQL.class.getName() + " [<options>]";
+		String syntax = SetDelete.class.getName() + " [<options>]";
 		formatter.printHelp(pw, 100, syntax, "options:", options, 0, 2, null);
 		log.info(sw.toString());
 	}

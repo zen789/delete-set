@@ -20,3 +20,11 @@ or
 
   java -jar delete-set-<version-jar-with-dependencies.jar
 
+Options:
+-h,--host <arg>       Server hostname (default: localhost)
+-n,--namespace <arg>  Namespace (default: test)
+-p,--port <arg>       Server port (default: 3000)
+-s,--set <arg>        Set to delete (default: test)
+-u,--usage            Print usage.
+
+
