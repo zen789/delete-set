@@ -1,0 +1,61 @@
+package com.aerospike.utility;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
+import org.apache.log4j.Logger;
+
+import com.aerospike.client.AerospikeClient;
+import com.aerospike.client.AerospikeException;
+import com.aerospike.client.Key;
+import com.aerospike.client.Record;
+import com.aerospike.client.ScanCallback;
+import com.aerospike.client.policy.ScanPolicy;
+import com.aerospike.client.policy.WritePolicy;
+
+public class SetDelete {
+	private static Logger log = Logger.getLogger(SetDelete.class);
+	static int count = 0;
+	public static void main(String[] args) throws ParseException, AerospikeException {
+		Options options = new Options();
+		options.addOption("h", "host", true, "Server hostname (default: localhost)");
+		options.addOption("p", "port", true, "Server port (default: 3000)");
+		options.addOption("n", "namespace", true, "Namespace (default: test)");
+		options.addOption("s", "set", true, "Set to delete (default: test)");
+		options.addOption("u", "usage", false, "Print usage.");
+
+		CommandLineParser parser = new PosixParser();
+		CommandLine cl = parser.parse(options, args, false);
+		
+		String host = cl.getOptionValue("h", "127.0.0.1");
+		String portString = cl.getOptionValue("p", "3000");
+		int port = Integer.parseInt(portString);
+		String set = cl.getOptionValue("s", null);
+		String namespace = cl.getOptionValue("n","test");
+
+		log.info("Host: " + host);
+		log.info("Port: " + port);
+		log.info("Name space: " + namespace);
+		log.info("Set: " + set);
+		
+		final AerospikeClient client = new AerospikeClient(host, port);
+		
+		
+		ScanPolicy scanPolicy = new ScanPolicy();
+		
+		client.scanAll(scanPolicy, namespace, set, new ScanCallback() {
+			
+			public void scanCallback(Key key, Record record) throws AerospikeException {
+				client.delete(new WritePolicy(), key);
+				count++;
+				if (count % 25000 == 0){
+					log.info("Deleted "+ count);
+				}
+			}
+		}, new String[] {});
+		log.info("Deleted "+ count + " records from set " + set);
+	}
+
+}
