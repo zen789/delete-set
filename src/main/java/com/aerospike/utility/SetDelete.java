@@ -54,12 +54,21 @@ public class SetDelete {
 		
 		
 		ScanPolicy scanPolicy = new ScanPolicy();
-		
+		/*
+		 * scan the entire Set using scannAll(). This will scan each node 
+		 * in the cluster and return the record Digest to the call back object
+		 */
 		client.scanAll(scanPolicy, namespace, set, new ScanCallback() {
 			
 			public void scanCallback(Key key, Record record) throws AerospikeException {
+				/*
+				 * for each Digest returned, delete it using delete()
+				 */
 				client.delete(new WritePolicy(), key);
 				count++;
+				/*
+				 * after 25,000 records delete, return print the count.
+				 */
 				if (count % 25000 == 0){
 					log.info("Deleted "+ count);
 				}
