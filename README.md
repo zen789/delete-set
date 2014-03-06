@@ -53,8 +53,8 @@ Maven is required to build delete-set. From the root directory of the project, i
 mvn clean package
 ```	
 Two JAR files will be produced in the directory 'target', these are:
-* delete-set-<version>-jar-with-dependencies.jar - this is a runnable jar complete with all the dependencies packaged.
-* delete-set-<version>.jar - this is runnable jar, but it will expect to locate it's dependencies via maven.
+* delete-set-\<version\>-jar-with-dependencies.jar - this is a runnable jar complete with all the dependencies packaged.
+* delete-set-\<version\>.jar - this is runnable jar, but it will expect to locate it's dependencies via maven.
 
 ##Run delete-set
 While this utility can run on any machine, it should be run on machine that has excellent network bandwidth to the cluster.
