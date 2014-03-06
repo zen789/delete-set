@@ -67,7 +67,7 @@ public class SetDelete {
 				client.delete(new WritePolicy(), key);
 				count++;
 				/*
-				 * after 25,000 records delete, return print the count.
+				 * after 25,000 records deleted, print the count.
 				 */
 				if (count % 25000 == 0){
 					log.info("Deleted "+ count);
