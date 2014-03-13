@@ -78,7 +78,7 @@ These are the options:
 ```
 -h,--host <arg>  Server hostname (default: localhost)
 -p,--port <arg>  Server port (default: 3000)
--s,--set  <arg>  Set to delete (default: test)
+-s,--set  <arg>  Set to delete
 -n,--namespace	 Namespace containing the Set (default: test)
 -u,--usage       Print usage.
 ```
