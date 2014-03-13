@@ -50,6 +50,10 @@ public class SetDelete {
 		log.info("Port: " + port);
 		log.info("Name space: " + namespace);
 		log.info("Set: " + set);
+		if (set == null){
+			log.error("You must specify a set");
+			return;
+		}
 		try {
 			final AerospikeClient client = new AerospikeClient(host, port);
 
