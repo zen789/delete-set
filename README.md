@@ -17,30 +17,36 @@ The utility, named delete-set, requires the Aerospike Java client, which will be
 ##How it works
 Most of the work is done using the scallAll() method on the AerospikeClient class. Consider this code snippet:
 ```java
-		final AerospikeClient client = new AerospikeClient(host, port);
-		
-		ScanPolicy scanPolicy = new ScanPolicy();
-		/*
-		 * scan the entire Set using scannAll(). This will scan each node 
-		 * in the cluster and return the record Digest to the call back object
-		 */
-		client.scanAll(scanPolicy, namespace, set, new ScanCallback() {
-			
-			public void scanCallback(Key key, Record record) throws AerospikeException {
-				/*
-				 * for each Digest returned, delete it using delete()
-				 */
-				client.delete(new WritePolicy(), key);
-				count++;
-				/*
-				 * after 25,000 records deleted, print the count.
-				 */
-				if (count % 25000 == 0){
-					log.info("Deleted "+ count);
-				}
+try {
+	final AerospikeClient client = new AerospikeClient(host, port);
+
+	ScanPolicy scanPolicy = new ScanPolicy();
+	/*
+	 * scan the entire Set using scannAll(). This will scan each node 
+	 * in the cluster and return the record Digest to the call back object
+	 */
+	client.scanAll(scanPolicy, namespace, set, new ScanCallback() {
+
+		public void scanCallback(Key key, Record record) throws AerospikeException {
+			/*
+			 * for each Digest returned, delete it using delete()
+			 */
+			client.delete(new WritePolicy(), key);
+			count++;
+			/*
+			 * after 25,000 records delete, return print the count.
+			 */
+			if (count % 25000 == 0){
+				log.info("Deleted "+ count);
 			}
-		}, new String[] {});
-		log.info("Deleted "+ count + " records from set " + set);
+		}
+	}, new String[] {});
+	log.info("Deleted "+ count + " records from set " + set);
+} catch (AerospikeException e) {
+	int resultCode = e.getResultCode();
+	log.info(ResultCode.getResultString(resultCode));
+	log.debug("Error details: ", e);
+}
 ```
 The scanAll() method scans through the Set and returns the Key for each record found. 
 It is actually the encrypted Digest that is returned, but the Java API nicely wraps it in the Key class.
@@ -73,6 +79,7 @@ These are the options:
 -h,--host <arg>  Server hostname (default: localhost)
 -p,--port <arg>  Server port (default: 3000)
 -s,--set  <arg>  Set to delete (default: test)
+-n,--namespace	 Namespace containing the Set (default: test)
 -u,--usage       Print usage.
 ```
 
