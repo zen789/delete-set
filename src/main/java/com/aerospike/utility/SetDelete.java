@@ -80,7 +80,7 @@ public class SetDelete {
 			int resultCode = e.getResultCode();
 			log.info(ResultCode.getResultString(resultCode));
 			log.debug("Error details: ", e);
-		};
+		}
 	}
 
 
