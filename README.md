@@ -12,13 +12,12 @@ A utility that deletes the data in a Set written in Java so it can run anywhere 
 The source code for this solution is available on GitHub, at 
 https://github.com/aerospike/delete-set 
 
-The utility, names as-delete-set, requires the Aerospike Java client, which will be downloaded from Maven Central as part of the build.
+The utility, named delete-set, requires the Aerospike Java client, which will be downloaded from Maven Central as part of the build.
 
 ##How it works
 Most of the work is done using the scallAll() method on the AerospikeClient class. Consider this code snippet:
 ```java
 		final AerospikeClient client = new AerospikeClient(host, port);
-		
 		
 		ScanPolicy scanPolicy = new ScanPolicy();
 		/*
@@ -34,7 +33,7 @@ Most of the work is done using the scallAll() method on the AerospikeClient clas
 				client.delete(new WritePolicy(), key);
 				count++;
 				/*
-				 * after 25,000 records delete, return print the count.
+				 * after 25,000 records deleted, print the count.
 				 */
 				if (count % 25000 == 0){
 					log.info("Deleted "+ count);
@@ -49,24 +48,24 @@ It is actually the encrypted Digest that is returned, but the Java API nicely wr
 The Key and Record are passed to the call back anonymous class where the delete() method is called on the record.
 
 ##Build instructions
-Maven is required to build as-delete-set. From the root directory of the project, issue the following command:
+Maven is required to build delete-set. From the root directory of the project, issue the following command:
 ```
 mvn clean package
 ```	
 Two JAR files will be produced in the directory 'target', these are:
-* as-delete-set-<version>-jar-with-dependencies.jar - this is a runnable jar complete with all the dependencies packaged.
-* as-delete-set-<version>.jar - this is runnable jar, but it will expect to locate it's dependencies via maven.
+* delete-set-\<version\>-jar-with-dependencies.jar - this is a runnable jar complete with all the dependencies packaged.
+* delete-set-\<version\>.jar - this is runnable jar, but it will expect to locate it's dependencies via maven.
 
-##Run as-delete-set
+##Run delete-set
 While this utility can run on any machine, it should be run on machine that has excellent network bandwidth to the cluster.
 
 The JAR files are runnable JARS. Here is an example command to delete the data in the Set 'demo':
 ```
-java -jar as-delete-set-1.0.0-jar-with-dependencies.jar -h p3 -p 3000 -s demo
+java -jar delete-set-1.0.0-jar-with-dependencies.jar -h p3 -p 3000 -s demo
 ```
 or
 ```
-java -jar as-delete-set-1.0.0.jar -h p3 -p 3000 -s demo
+java -jar delete-set-1.0.0.jar -h p3 -p 3000 -s demo
 ```
 ##Options
 These are the options:
