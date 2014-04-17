@@ -15,7 +15,7 @@ https://github.com/aerospike/delete-set
 The utility, named delete-set, requires the Aerospike Java client, which will be downloaded from Maven Central as part of the build.
 
 ##How it works
-Most of the work is done using the scallAll() method on the AerospikeClient class. Consider this code snippet:
+Most of the work is done using the scanAll() method on the AerospikeClient class. Consider this code snippet:
 ```java
 try {
 	final AerospikeClient client = new AerospikeClient(host, port);
