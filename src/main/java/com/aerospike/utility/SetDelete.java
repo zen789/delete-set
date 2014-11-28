@@ -43,7 +43,7 @@ public class SetDelete {
 		String host = cl.getOptionValue("h", "127.0.0.1");
 		String portString = cl.getOptionValue("p", "3000");
 		int port = Integer.parseInt(portString);
-		String set = cl.getOptionValue("s", null);
+		String set = cl.getOptionValue("s", "test");
 		String namespace = cl.getOptionValue("n","test");
 
 		log.info("Host: " + host);
