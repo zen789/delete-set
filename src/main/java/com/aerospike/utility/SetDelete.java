@@ -77,7 +77,7 @@ public class SetDelete {
 			ScanPolicy scanPolicy = new ScanPolicy();
 			scanPolicy.includeBinData = false;
 			/*
-			 * scan the entire Set using scannAll(). This will scan each node 
+			 * scan the entire Set using scanAll(). This will scan each node 
 			 * in the cluster and return the record Digest to the call back object
 			 */
 			client.scanAll(scanPolicy, namespace, set, new ScanCallback() {
